@@ -1,6 +1,6 @@
 import {createContext, useState} from 'react';
 
-const Context = createContext({
+export const Context = createContext({
     favorites: [],
     addFavorite: (id) => {},
     removeFavorite: (id) => {}
@@ -10,7 +10,7 @@ export default function ContextProvider({children}) {
     const [ids, setIds] = useState([]);
 
     function addId(id) {
-        if (ids.include(id)) return;
+        if (ids.includes(id)) return;
 
         setIds((list) => [list, id]);
     }
