@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "RNCourse",
-    "slug": "RNCourse",
-    "version": "1.0.0",
-    "orientation": "portrait",
+    "name": "MealsApp",
+    "slug": "meals-app",
+    "version": "1.0.1",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "backgroundColor": "#24180f",
     "splash": {

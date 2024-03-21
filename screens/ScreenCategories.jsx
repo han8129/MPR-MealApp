@@ -3,10 +3,10 @@ import CategoryGridTile from '../components/CategoryGridTile';
 
 import { CATEGORIES } from '../data/dummy-data';
 
-function CategoriesScreen({ navigation }) {
+export default function ScreenCategories({ navigation }) {
   function renderCategoryItem(itemData) {
     function pressHandler() {
-      navigation.navigate('MealsOverview', {
+      navigation.navigate('CategorizedMeals', {
         categoryId: itemData.item.id,
       });
     }
@@ -29,5 +29,3 @@ function CategoriesScreen({ navigation }) {
     />
   );
 }
-
-export default CategoriesScreen;
