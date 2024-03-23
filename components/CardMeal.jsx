@@ -5,17 +5,18 @@ import {
     Image,
     StyleSheet,
     Platform,
+    Dimensions,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Sizes from '../constants/Sizes';
 import Styles from '../constants/Styles';
+import Colors from '../constants/Colors';
 
 export default function CardMeal({
     id,
     title,
     imageUrl,
     duration,
-    complexity,
     affordability,
 }) {
     const navigation = useNavigation();
@@ -27,41 +28,37 @@ export default function CardMeal({
     }
 
     return (
-        <View style={styles.mealItem}>
-            <Pressable
-                android_ripple={{ color: '#ccc' }}
-                style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
-                onPress={pressHandler}
-            >
+        <Pressable
+            android_ripple={{ color: Colors.dark }}
+            style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
+            onPress={pressHandler}
+        >
+            <View style={styles.mealItem}>
                 <View style={styles.innerContainer}>
-                    <View>
-                        <Image
-                            source={{ uri: imageUrl }}
-                            style={styles.image}
-                        />
-                        <Text style={styles.title}>{title}</Text>
-                    </View>
+                    <Image source={{ uri: imageUrl }} style={styles.image} />
+                    <Text style={styles.title}>{title}</Text>
+
                     <Details
+                        style={{}}
                         duration={duration}
                         affordability={affordability}
                     />
                 </View>
-            </Pressable>
-        </View>
+            </View>
+        </Pressable>
     );
 }
 
 const styles = StyleSheet.create({
     mealItem: {
-        margin: Sizes.lg,
-        borderRadius: 8,
+        borderRadius: Sizes.lg,
         overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
-        backgroundColor: 'white',
+        backgroundColor: Colors.secondary,
         elevation: 4,
-        shadowColor: 'black',
+        shadowColor: Colors.primary,
         shadowOpacity: 0.25,
         shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 8,
+        shadowRadius: Sizes.lg,
         flex: 1,
     },
     buttonPressed: {
@@ -70,6 +67,8 @@ const styles = StyleSheet.create({
     innerContainer: {
         borderRadius: Sizes.md,
         overflow: 'hidden',
+        gap: Sizes.md,
+        paddingBottom: Sizes.md,
     },
     image: {
         width: '100%',
@@ -78,17 +77,20 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: 'bold',
         textAlign: 'center',
-        fontSize: Sizes.lg,
-        margin: Sizes.sm,
+        fontSize: Sizes.xl,
+        color: Colors.primary3,
     },
 });
 
-function Details({ duration, affordability, textStyle }) {
+const textStyle = {
+    fontSize: Sizes.lg,
+    color: Colors.primary2,
+    textAlign: 'center',
+};
+function Details({ duration, affordability }) {
     return (
-        <View style={[Styles.flexRow, Styles.paddingMd]}>
-            <Text style={[Styles.fontMd, textStyle]}>{duration}m</Text>
-            <Text style={[Styles.fontMd, textStyle]}> {affordability.toUpperCase()}
-            </Text>
-        </View>
+        <Text style={textStyle}>
+            {duration}m {' ' + affordability.toUpperCase()}
+        </Text>
     );
 }

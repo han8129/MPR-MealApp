@@ -1,5 +1,5 @@
 import { Context } from '../Context';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useLayoutEffect } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 
 import IconButton from '../components/IconButton';
@@ -7,6 +7,8 @@ import List from '../components/MealDetail/List';
 import Subtitle from '../components/MealDetail/Subtitle';
 import MealDetails from '../components/MealDetails';
 import { MEALS } from '../data/dummy-data';
+import Styles from '../constants/Styles';
+import Colors from '../constants/Colors';
 
 export default function ScreenMeal({ route, navigation }) {
     const context = useContext(Context);
@@ -24,17 +26,7 @@ export default function ScreenMeal({ route, navigation }) {
         return true;
     }
 
-    navigation.setOptions({
-        headerRight: () => (
-            <IconButton
-                icon={fav ? 'heart' : 'heart-outline'}
-                color='white'
-                onPress={headerButtonPressHandler}
-            />
-        ),
-    });
-
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (context.favorites.includes(id)) {
             setFav(true);
             return;
@@ -46,17 +38,32 @@ export default function ScreenMeal({ route, navigation }) {
 
     return (
         <ScrollView style={styles.rootContainer}>
-            <Image
-                style={styles.image}
-                source={{ uri: selectedMeal.imageUrl }}
-            />
-            <Text style={styles.title}>{selectedMeal.title}</Text>
+            <View style={{
+                alignItems: 'center',
+                backgroundColor: 'yellow'
+            }}>
+                <Image
+                    style={styles.image}
+                    source={{ uri: selectedMeal.imageUrl }}
+                />
+            </View>
+
+            <View style={[Styles.flexRow, Styles.center]}>
+                <Text style={styles.title}>{selectedMeal.title}</Text>
+                <IconButton
+                    icon={fav ? 'heart' : 'heart-outline'}
+                    color='crimson'
+                    onPress={headerButtonPressHandler}
+                />
+            </View>
+
             <MealDetails
                 duration={selectedMeal.duration}
                 complexity={selectedMeal.complexity}
                 affordability={selectedMeal.affordability}
                 textStyle={styles.detailText}
             />
+
             <View style={styles.listOuterContainer}>
                 <View style={styles.listContainer}>
                     <Subtitle>Ingredients</Subtitle>
@@ -72,6 +79,7 @@ export default function ScreenMeal({ route, navigation }) {
 const styles = StyleSheet.create({
     rootContainer: {
         marginBottom: 32,
+        backgroundColor: Colors.dark
     },
     image: {
         width: '100%',
@@ -82,10 +90,10 @@ const styles = StyleSheet.create({
         fontSize: 24,
         margin: 8,
         textAlign: 'center',
-        color: 'white',
+        color: Colors.primary3,
     },
     detailText: {
-        color: 'white',
+        color: Colors.primary3,
     },
     listOuterContainer: {
         alignItems: 'center',

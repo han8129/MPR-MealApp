@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
 import ScreenCategories from './screens/ScreenCategories';
@@ -10,44 +10,45 @@ import ScreenMealsCategorized from './screens/ScreenMealsCategorized';
 import ScreenMeal from './screens/ScreenMeal';
 import ScreenMealsFavorite from './screens/ScreenMealsFavorite';
 import ContextProvider from './Context';
+import Colors from './constants/Colors';
+import Sizes from './constants/Sizes';
 
 const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
-function DrawerNavigator() {
+function Tabs() {
     return (
-        <Drawer.Navigator
+        <Tab.Navigator
             initialRouteName='Categories'
             screenOptions={{
-                headerStyle: { backgroundColor: '#351401' },
-                headerTintColor: 'white',
-                sceneContainerStyle: { backgroundColor: '#3f2f25' },
-                drawerContentStyle: { backgroundColor: '#351401' },
-                drawerInactiveTintColor: 'white',
-                drawerActiveTintColor: '#351401',
-                drawerActiveBackgroundColor: '#e4baa1',
+                headerStyle: { backgroundColor: Colors.primary3 },
+                headerTintColor: Colors.primary,
+                tabBarInactiveBackgroundColor: Colors.primary3,
+                tabBarActiveTintColor: Colors.secondary,
+                tabBarActiveBackgroundColor: Colors.primary3,
+                tabBarInactiveTintColor: Colors.primary2,
             }}
         >
-            <Drawer.Screen
+            <Tab.Screen
                 name='Categories'
                 component={ScreenCategories}
                 options={{
                     title: 'All Categories',
-                    drawerIcon: ({ color, size }) => (
-                        <Ionicons name='list' color={color} size={size} />
+                    tabBarIcon: ({ color }) => (
+                        <Ionicons name='list' color={color} size={Sizes.xl} />
                     ),
                 }}
             />
-            <Drawer.Screen
+            <Tab.Screen
                 name='Favorites'
                 component={ScreenMealsFavorite}
                 options={{
-                    drawerIcon: ({ color, size }) => (
-                        <Ionicons name='heart' color={color} size={size} />
+                    tabBarIcon: ({ color }) => (
+                        <Ionicons name='heart' color={color} size={Sizes.xl} />
                     ),
                 }}
             />
-        </Drawer.Navigator>
+        </Tab.Navigator>
     );
 }
 
@@ -59,14 +60,14 @@ export default function App() {
                 <NavigationContainer>
                     <Stack.Navigator
                         screenOptions={{
-                            headerStyle: { backgroundColor: '#351401' },
-                            headerTintColor: 'white',
-                            contentStyle: { backgroundColor: '#3f2f25' },
+                            headerStyle: { backgroundColor: Colors.primary3 },
+                            headerTintColor: Colors.primary,
+                            contentStyle: { backgroundColor: Colors.dark },
                         }}
                     >
                         <Stack.Screen
-                            name='Drawer'
-                            component={DrawerNavigator}
+                            name='Tabs'
+                            component={Tabs}
                             options={{
                                 headerShown: false,
                             }}

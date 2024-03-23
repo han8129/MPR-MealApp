@@ -4,31 +4,31 @@ import Sizes from './Sizes';
 export default Styles = StyleSheet.create({
     flexRow: {
         flexDirection: 'row',
-        gap: Sizes.md
+        gap: Sizes.md,
     },
     flexColumn: {
         flexDirection: 'column',
-        gap: Sizes.md
+        gap: Sizes.md,
     },
     center: {
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     paddingMd: {
-        padding: Sizes.md
+        padding: Sizes.md,
     },
 
     paddingSm: {
-        padding: Sizes.sm
+        padding: Sizes.sm,
     },
 
     borderWidthMd: {
-        borderWidth: Sizes.md
-    }
-    , fontMd: {
-        fontSize: Sizes.md
-    }
-    , fontLg: {
-        fontSize: Sizes.lg
-    }
+        borderWidth: Sizes.md,
+    },
+    fontMd: {
+        fontSize: Sizes.md,
+    },
+    fontLg: {
+        fontSize: Sizes.lg,
+    },
 });
