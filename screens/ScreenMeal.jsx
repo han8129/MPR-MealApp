@@ -1,45 +1,49 @@
-import { Context } from "../Context";
-import { useEffect, useState, useContext } from "react";
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import { Context } from '../Context';
+import { useEffect, useState, useContext } from 'react';
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 
-import IconButton from "../components/IconButton";
-import List from "../components/MealDetail/List";
-import Subtitle from "../components/MealDetail/Subtitle";
-import MealDetails from "../components/MealDetails";
-import { MEALS } from "../data/dummy-data";
+import IconButton from '../components/IconButton';
+import List from '../components/MealDetail/List';
+import Subtitle from '../components/MealDetail/Subtitle';
+import MealDetails from '../components/MealDetails';
+import { MEALS } from '../data/dummy-data';
 
 export default function ScreenMeal({ route, navigation }) {
     const context = useContext(Context);
-    const mealId = route.params?.mealId;
-
-    const [fav, setFav] = useState(context.favorites.includes(mealId));
-
-    const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+    const id = route.params?.mealId;
+    const [fav, setFav] = useState(context.favorites.includes(id));
+    const selectedMeal = MEALS.find((meal) => meal.id === id);
 
     function headerButtonPressHandler() {
-        setFav((current) => {
-            let star;
-            if (current == true) {
-                context.removeFavorite(mealId);
-                star = false;
-            } else {
-                context.addFavorite(mealId);
-                star = true;
-            }
 
-            return star;
-        });
+        if (fav == true) {
+            context.removeFavorite(id);
+            return false;
+        }
 
-        navigation.setOptions({
-            headerRight: () => (
-                <IconButton
-                    icon={fav ? "heart" : "heart-outline"}
-                    color="white"
-                    onPress={headerButtonPressHandler}
-                />
-            ),
-        });
+        context.addFavorite(id);
+        return true;
     }
+
+    navigation.setOptions({
+        headerRight: () => (
+            <IconButton
+                icon={fav ? 'heart' : 'heart-outline'}
+                color='white'
+                onPress={headerButtonPressHandler}
+            />
+        ),
+    });
+
+    useEffect(() => {
+        if (context.favorites.includes(id)) {
+            setFav(true);
+            return;
+        }
+
+        setFav(false);
+    }, [context.favorites]);
+
 
     return (
         <ScrollView style={styles.rootContainer}>
@@ -71,23 +75,23 @@ const styles = StyleSheet.create({
         marginBottom: 32,
     },
     image: {
-        width: "100%",
+        width: '100%',
         height: 350,
     },
     title: {
-        fontWeight: "bold",
+        fontWeight: 'bold',
         fontSize: 24,
         margin: 8,
-        textAlign: "center",
-        color: "white",
+        textAlign: 'center',
+        color: 'white',
     },
     detailText: {
-        color: "white",
+        color: 'white',
     },
     listOuterContainer: {
-        alignItems: "center",
+        alignItems: 'center',
     },
     listContainer: {
-        width: "80%",
+        width: '80%',
     },
 });

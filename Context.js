@@ -1,12 +1,12 @@
-import {createContext, useState} from 'react';
+import { createContext, useState } from 'react';
 
 export const Context = createContext({
     favorites: [],
     addFavorite: (id) => {},
-    removeFavorite: (id) => {}
+    removeFavorite: (id) => {},
 });
 
-export default function ContextProvider({children}) {
+export default function ContextProvider({ children }) {
     const [ids, setIds] = useState([]);
 
     function addId(id) {
@@ -22,10 +22,8 @@ export default function ContextProvider({children}) {
     const context = {
         favorites: ids,
         addFavorite: addId,
-        removeFavorite: removeId
+        removeFavorite: removeId,
     };
 
-    return (
-            <Context.Provider value={context} >{children}</Context.Provider>
-    );
+    return <Context.Provider value={context}>{children}</Context.Provider>;
 }

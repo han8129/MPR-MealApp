@@ -6,7 +6,7 @@ import ListMeal from "../components/ListMeal";
 import MealItem from "../components/MealItem";
 import { MEALS, CATEGORIES } from "../data/dummy-data";
 
-export default function ScreenCategorizedMeals({ route, navigation }) {
+export default function ScreenMealsCategorized({ route, navigation }) {
     const { width, height } = useWindowDimensions();
 
     const numColumns = width < height ? 1 : 2;

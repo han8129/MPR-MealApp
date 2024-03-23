@@ -1,4 +1,5 @@
 trailingComma: "es5"
 tabWidth: 4
 semi: true
-singleQoute: true
+singleQuote: true
+jsxSingleQuote: true
