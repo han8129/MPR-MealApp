@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Sizes from '../constants/Sizes';
+import Styles from '../constants/Styles';
 
 export default function CardMeal({
     id,
@@ -40,10 +41,9 @@ export default function CardMeal({
                         />
                         <Text style={styles.title}>{title}</Text>
                     </View>
-                    <MealDetails
+                    <Details
                         duration={duration}
                         affordability={affordability}
-                        complexity={complexity}
                     />
                 </View>
             </Pressable>
@@ -83,24 +83,11 @@ const styles = StyleSheet.create({
     },
 });
 
-const styleDetails = StyleSheet.create({
-    details: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: Sizes.md,
-    },
-    detailItem: {
-        marginHorizontal: Sizes.sm ,
-        fontSize: Sizes.md,
-    },
-});
-
-function Details({ duration, affordability }) {
+function Details({ duration, affordability, textStyle }) {
     return (
-        <View style={[styleDetails.details, style]}>
-            <Text style={[styleDetails.detailItem, textStyle]}>{duration}m</Text>
-            <Text style={[styles.detailItem, textStyle]}> {affordability.toUpperCase()}
+        <View style={[Styles.flexRow, Styles.paddingMd]}>
+            <Text style={[Styles.fontMd, textStyle]}>{duration}m</Text>
+            <Text style={[Styles.fontMd, textStyle]}> {affordability.toUpperCase()}
             </Text>
         </View>
     );

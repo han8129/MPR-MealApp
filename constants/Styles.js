@@ -25,4 +25,10 @@ export default Styles = StyleSheet.create({
     borderWidthMd: {
         borderWidth: Sizes.md
     }
+    , fontMd: {
+        fontSize: Sizes.md
+    }
+    , fontLg: {
+        fontSize: Sizes.lg
+    }
 });

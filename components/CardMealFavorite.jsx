@@ -7,8 +7,7 @@ import {
     Platform,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-import MealDetails from './MealDetails';
+import { CATEGORIES } from '../data/dummy-data';
 
 export default function CardMealFavorite({
     id,
@@ -39,11 +38,7 @@ export default function CardMealFavorite({
                         />
                         <Text style={styles.title}>{title}</Text>
                     </View>
-                    <MealDetails
-                        duration={duration}
-                        affordability={affordability}
-                        complexity={complexity}
-                    />
+                    <Details categoryIds={categoryIds} />
                 </View>
             </Pressable>
         </View>
@@ -81,3 +76,35 @@ const styles = StyleSheet.create({
         margin: 8,
     },
 });
+
+/**
+ * Returns the title of a category based on its ID.
+ *
+ * @param {string} id - The ID of the category.
+ * @returns {string} - The title of the category.
+ */
+function getCategoryTitle(id) {
+    const temp = CATEGORIES.find((obj) => id === obj.id)   
+
+    if (temp == undefined)
+        throw new Error(`No Category with ID of ${id}`);
+
+    return temp;
+}
+
+/**
+ * 
+ * @param {Array<string>} categoryIds
+ * @returns {ReactElement}
+ */
+function Details({categoryIds}) {
+    const categories = categoryIds.map((id) =>
+            <Text style={[Styles.fontMd, textStyle]}>{getCategoryTitle(id)}</Text>
+     );
+    return (
+        <View style={[Styles.flexRow, Styles.paddingMd]}>
+            <Text style={[Styles.fontMd, textStyle]}> {affordability.toUpperCase()}
+            </Text>
+        </View>
+    );
+}
