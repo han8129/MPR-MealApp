@@ -1,9 +1,7 @@
 import { useEffect } from "react";
+import { View, StyleSheet, useWindowDimensions, FlatList } from "react-native";
+import CardMeal from '../components/CardMeal';
 
-import { View, StyleSheet, useWindowDimensions } from "react-native";
-import ListMeal from "../components/ListMeal";
-
-import MealItem from "../components/MealItem";
 import { MEALS, CATEGORIES } from "../data/dummy-data";
 
 export default function ScreenMealsCategorized({ route, navigation }) {
@@ -40,3 +38,16 @@ const styles = StyleSheet.create({
         padding: 16,
     },
 });
+
+
+function ListMeal({list, numColumns = 1}) {
+    return (
+        <FlatList
+            data={list}
+            keyExtractor={(item) => item.id}
+            renderItem={({item}) => <CardMeal {...item}/>}
+            numColumns={numColumns}
+            key={numColumns}
+        />
+    );
+}

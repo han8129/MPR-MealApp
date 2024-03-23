@@ -15,7 +15,6 @@ export default function ScreenMeal({ route, navigation }) {
     const selectedMeal = MEALS.find((meal) => meal.id === id);
 
     function headerButtonPressHandler() {
-
         if (fav == true) {
             context.removeFavorite(id);
             return false;

@@ -23,6 +23,8 @@ export default function CardMealFavorite({
         });
     }
 
+    console.log(categoryIds)
+
     return (
         <View style={styles.mealItem}>
             <Pressable
@@ -38,7 +40,7 @@ export default function CardMealFavorite({
                         />
                         <Text style={styles.title}>{title}</Text>
                     </View>
-                    <Details categoryIds={categoryIds} />
+                <Details categoryIds={categoryIds} />
                 </View>
             </Pressable>
         </View>
@@ -89,7 +91,7 @@ function getCategoryTitle(id) {
     if (temp == undefined)
         throw new Error(`No Category with ID of ${id}`);
 
-    return temp;
+    return temp.title;
 }
 
 /**
@@ -97,14 +99,13 @@ function getCategoryTitle(id) {
  * @param {Array<string>} categoryIds
  * @returns {ReactElement}
  */
-function Details({categoryIds}) {
+function Details({categoryIds, textStyle}) {
     const categories = categoryIds.map((id) =>
             <Text style={[Styles.fontMd, textStyle]}>{getCategoryTitle(id)}</Text>
      );
     return (
         <View style={[Styles.flexRow, Styles.paddingMd]}>
-            <Text style={[Styles.fontMd, textStyle]}> {affordability.toUpperCase()}
-            </Text>
+            {categories}
         </View>
     );
 }

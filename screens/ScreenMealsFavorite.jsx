@@ -1,12 +1,11 @@
 import { Context } from '../Context';
 import { useContext } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import ListMeal from '../components/ListMeal';
+import { View, StyleSheet, Text, FlatList } from 'react-native';
 
-import MealItem from '../components/MealItem';
-import { MEALS, CATEGORIES } from '../data/dummy-data';
+import { MEALS } from '../data/dummy-data';
+import CardMealFavorite from '../components/CardMealFavorite';
 
-export default function ScreenMealFavorite({ navigation }) {
+export default function ScreenMealFavorite({}) {
     const context = useContext(Context);
 
     const favMeals = MEALS.filter((meal) =>
@@ -36,3 +35,15 @@ const styles = StyleSheet.create({
         padding: 16,
     },
 });
+
+function ListMeal({list, numColumns = 1}) {
+    return (
+        <FlatList
+            data={list}
+            keyExtractor={(item) => item.id}
+            renderItem={({item}) => <CardMealFavorite {...item}/>}
+            numColumns={numColumns}
+            key={numColumns}
+        />
+    );
+}
